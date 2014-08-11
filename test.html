@@ -6,20 +6,30 @@
   <script src="python.js"></script>
 </head>
 <body>
+<script>
+  //------------------------- string -----------------------------
   
-  <script>
-      var s = '11 \b 22 \f 33 \r 44 \n 55 \t 66 \' 77 \" 88 \\ 99';
-      console.log(Py.string.r(s) );
-
-      
-      var r = [1,2,3];
-      console.log( Py.list.append(r, 5) );
-      console.log( r ); 
-      
-
-    
-    
-  </script>
+  var s = '11 \b 22 \f 33 \r 44 \n 55 \t 66 \' 77 \" 88 \\ 99';
+  var py_s = new Py.string(s);
   
+  //console.log(py_s.r().value() );
+  
+  //------------------------- list -----------------------------
+  
+  var l = [1, 2, 3];
+  var py_l = new Py.list(l);
+  
+  //console.log( py_l.extend([4,5]).append(6).insert(1,9).value() )
+  
+  //------------------------- tuple -----------------------------
+  
+  var py_l2 = new Py.list(["d", "e"]);
+  var t = ["a", "b", "c", py_l, py_l2 ];
+  var py_t = new Py.tuple(t);
+
+  console.log( py_t.value() )
+  console.log( py_t.set(3, 5, "paper") )
+  console.log( py_t.value() )
+</script>
 </body>
 </html>
