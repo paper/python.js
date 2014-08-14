@@ -7,7 +7,8 @@
   
   Reference   http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000
               http://woodpecker.org.cn/diveintopython/
-              http://www.google.com
+              https://www.python.org/
+              http://www.pythondoc.com/pythontutorial27/
 ============================================================*/
 (function(global, undefined){
   
@@ -206,7 +207,7 @@
       return this;
     }
     
-  }
+  }//end Py.list.prototype
   
   /*------------------------
     Python *tuple对象 (待考虑)
@@ -225,7 +226,69 @@
   Py.tuple.prototype.type = "tuple";
   
   
+  /*------------------------
+    Python dict
+    
+    py_dict = new Py.dict(obj);
+  ------------------------*/
+  Py.dict = function(obj){
+    this.dict = obj;
+  }
   
+  Py.dict.prototype = {
+    type : "dict",
+    
+    value : function(){
+      return this.dict;
+    },
+    
+    // dict同样需要支持 dict['a'][0] 这种形式，但前面list已经写了
+    // dict只要类似的写就可以了，这里不再重复
+    
+    // py_dict.set('a', 123) => dict['a'] = 123
+    set : function(key, value){
+      this.dict[key] = value;
+    },
+    
+    // py_dict.get('a') => dict['a'] or dict.get(key, value);
+    get : function(key, value){
+      return this.dict[key] === undefined ? value : this.dict[key];
+    },
+
+    pop : function(key){
+      if( this.dict[key] === undefined ){
+        throw new Error('KeyError: "'+ key +'"');
+      }
+      
+      delete this.dict[key];
+    }
+    
+  }//end Py.dict.prototype
+  
+  
+  /*------------------------
+    Python set (New in version 2.3)
+    http://www.pythondoc.com/pythontutorial27/datastructures.html#tut-sets
+    
+    参数是list或者字符串，只要是元素内容不可变就行
+    str不可变的，list是可变的，所以set的参数如果是list包含了list，就会报错
+    
+    py_set = new Py.set([1,2,3]); // or (1,2,3), 'abc'
+  ------------------------*/
+  Py.set = function(arr){
+    this.set = arr;
+  }
+  
+  Py.set.prototype = {
+    type : "set",
+    
+    value : function(){
+      return this.set;
+    },
+    
+    
+    
+  }//end Py.dict.prototype
   
   
  
